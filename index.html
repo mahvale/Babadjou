@@ -4,172 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanctuaire Notre-Dame des Montagnes | Babadjou</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
         :root {
-            --primary: #1a2b2c;
-            --accent: #b0955a;
-            --blue: #007c91;
-            --red: #e64a4a;
-            --light: #f4f7f8;
-            --gold: #b0955a;
+            --primary-dark: #121d1e;
+            --accent-gold: #b0955a;
+            --spiritual-blue: #005f73;
+            --soft-white: #fcfcfc;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #fff; color: #333; overflow-x: hidden; scroll-behavior: smooth; }
+        /* --- MODIFICATION THEME SOMBRE --- */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #bbbbbb; background-color: #0a0f10; overflow-x: hidden; scroll-behavior: smooth; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; color: #ffffff; }
+        section { background-color: #0a0f10; }
 
-        /* --- ANIMATIONS CSS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
+        /* --- NAVIGATION --- */
+        .navbar { background: rgba(18, 29, 30, 0.98); backdrop-filter: blur(10px); padding: 1rem 0; }
+        .navbar-brand h2 { font-size: 1.4rem; color: white; margin: 0; letter-spacing: 1px; }
+        .navbar-brand span { font-size: 0.7rem; color: var(--accent-gold); display: block; text-transform: uppercase; letter-spacing: 3px; }
+        .nav-link { color: rgba(255,255,255,0.85) !important; font-size: 0.85rem; font-weight: 500; margin: 0 10px; }
+        .nav-link:hover { color: var(--accent-gold) !important; }
+        .btn-donate { background: #e64a4a; color: white !important; border-radius: 50px; padding: 8px 25px !important; }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* --- HERO --- */
+        .carousel-item { height: 100vh; min-height: 600px; background-size: cover; background-position: center; }
+        .carousel-caption { bottom: 25%; text-align: left; max-width: 800px; left: 8%; z-index: 10; }
+        .carousel-caption h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-style: italic; }
 
-        /* Délai pour les listes (cartes) */
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.4s; }
-        .delay-3 { transition-delay: 0.6s; }
+        /* --- GLASS ACTIONS --- */
+        .glass-container { position: absolute; bottom: 40px; width: 100%; z-index: 20; display: flex; justify-content: center; }
+        .glass-box { background: rgba(0, 95, 115, 0.8); backdrop-filter: blur(15px); padding: 15px; border-radius: 20px; display: flex; gap: 15px; }
+        .glass-link { color: white; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: var(--transition); }
+        .glass-link:hover { background: white; color: var(--spiritual-blue); }
 
-        /* --- NAVIGATION PREMIUM --- */
-     /* --- NAVIGATION --- */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(26, 43, 44, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .nav-container { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .brand h2 { color: white; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
-        .brand span { color: var(--accent); font-size: 0.7rem; display: block; letter-spacing: 4px; }
+        /* --- SECTIONS COMMON --- */
+        section { padding: 100px 0; }
+        .section-title { margin-bottom: 60px; text-align: center; }
+        .section-title h2 { font-size: 2.8rem; position: relative; display: inline-block; padding-bottom: 15px; }
+        .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 25%; width: 50%; height: 2px; background: var(--accent-gold); }
+
+        /* --- NEW: NEWS CARDS --- */
+        .news-card { background: #121d1e; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition); height: 100%; }
+        .news-card:hover { transform: translateY(-10px); border-color: var(--accent-gold); }
+        .news-img { width: 100%; height: 200px; object-fit: cover; }
+        .news-body { padding: 25px; }
+
+        /* --- SPIRIT CARDS & GALLERY --- */
+        .spirit-card, .gallery-item { border-radius: 20px; overflow: hidden; height: 400px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .spirit-card img, .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .spirit-card:hover img, .gallery-item:hover img { transform: scale(1.1); }
+        .spirit-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 30px; display: flex; flex-direction: column; justify-content: flex-end; color: white; }
+
+        /* --- PROGRAM CARDS --- */
+        .prog-card { border: none; background: #121d1e; padding: 40px; border-radius: 20px; height: 100%; transition: var(--transition); border-bottom: 4px solid transparent; }
+        .prog-card:hover { transform: translateY(-10px); background: #1a2a2c; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border-bottom-color: var(--spiritual-blue); }
+        .prog-time { color: var(--accent-gold); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+
+        /* --- CONTACT --- */
+        .contact-info-box { background: var(--primary-dark); color: white; padding: 40px; border-radius: 20px; height: 100%; border: 1px solid rgba(255,255,255,0.05); }
+        .form-control { background: #1a2a2c; border: 1px solid #2d3e40; color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        .form-control::placeholder { color: #666; }
+
+        /* --- REVEAL --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) { .glass-box { flex-direction: column; width: 90%; } .section-title h2 { font-size: 2rem; } }
         
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--accent); }
-        .btn-don-nav { background: var(--red); padding: 8px 18px; border-radius: 20px; }
+        /* --- FOOTER STYLE --- */
+        .custom-footer { background-color: #000000; color: #ffffff; padding: 80px 0 30px 0; font-family: 'Plus Jakarta Sans', sans-serif; border-top: 3px solid #b0955a; }
+        .footer-logo-brand h2 { font-family: 'Playfair Display', serif; color: #ffffff; font-size: 1.5rem; margin: 0; letter-spacing: 2px; }
+        .footer-logo-brand span { color: #b0955a; font-size: 0.7rem; display: block; text-transform: uppercase; letter-spacing: 3px; }
+        .footer-logo-text { color: #888; font-size: 0.9rem; line-height: 1.6; margin-top: 25px; max-width: 350px; }
+        .footer-title { font-family: 'Playfair Display', serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 25px; color: #ffffff; }
+        .footer-list { list-style: none; padding: 0; }
+        .footer-list li { margin-bottom: 12px; color: #bbbbbb; font-size: 0.95rem; transition: 0.3s; cursor: pointer; }
+        .footer-list li:hover { color: #b0955a; padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid #1a1a1a; margin-top: 50px; padding-top: 30px; text-align: center; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* --- AJOUT POUR LE RESPONSIVE --- */
-        .menu-toggle { display: none; cursor: pointer; color: white; font-size: 1.5rem; flex-direction: column; gap: 5px; }
-        .menu-toggle span { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        /* WhatsApp */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 1000; text-decoration: none; }
 
-        @media (max-width: 900px) {
-            .menu-toggle { display: flex; } /* On affiche le bouton menu */
-            
-            nav {
-                display: none; /* On cache le menu par défaut sur mobile */
-                position: absolute; top: 100%; left: 0; width: 100%;
-                background: var(--primary); padding: 20px;
-            }
-
-            nav.active { display: block; } /* On l'affiche quand on clique */
-
-            nav ul { flex-direction: column; gap: 15px; }
-            .btn-don-nav { display: inline-block; }
-            
-            .shop-highlight { flex-direction: column; text-align: center; }
-        }
-  /*      .nav-container { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .brand h2 { color: white; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
-        .brand span { color: var(--accent); font-size: 0.7rem; display: block; letter-spacing: 4px; }
-        
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--accent); }
-        .btn-don-nav { background: var(--red); padding: 8px 18px; border-radius: 20px; }*/
-
-        /* --- CARROUSEL IMMERSIF --- */
-        .slider { position: relative; width: 100%; height: 100vh; overflow: hidden; background: #000; }
-        .slides { display: flex; width: 400%; height: 100%; animation: slideShow 24s infinite cubic-bezier(0.7, 0, 0.3, 1); }
-        .slide { width: 25%; height: 100%; position: relative; background-size: cover; background-position: center; }
-        
-        .slide-content {
-            position: absolute; top: 50%; left: 8%; transform: translateY(-50%);
-            color: white; max-width: 700px; z-index: 5; opacity: 0; animation: textFade 24s infinite;
-        }
-        .slide-content h1 { font-family: 'Georgia', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-style: italic; margin-bottom: 20px; line-height: 1.1; }
-        .slide-content p { font-size: 1.1rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); padding: 20px; border-left: 5px solid var(--accent); }
-
-        @keyframes slideShow {
-            0%, 20% { transform: translateX(0); }
-            25%, 45% { transform: translateX(-25%); }
-            50%, 70% { transform: translateX(-50%); }
-            75%, 95% { transform: translateX(-75%); }
-        }
-
-        @keyframes textFade {
-            0%, 20% { opacity: 1; transform: translateY(-50%) translateX(0); }
-            22%, 100% { opacity: 0; transform: translateY(-50%) translateX(-30px); }
-        }
-
-        /* --- BARRE D'ACTION GLASS --- */
-        .action-overlay { position: absolute; bottom: 0; width: 100%; z-index: 10; display: flex; justify-content: center; }
-        .glass-nav { background: rgba(0, 124, 145, 0.85); backdrop-filter: blur(15px); display: flex; border-radius: 15px 15px 0 0; padding: 10px; gap: 10px; }
-        .glass-btn { color: white; text-decoration: none; padding: 15px 25px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); }
-        .glass-btn:hover { background: white; color: var(--blue); }
-
-        /* --- SECTION CONTENU --- */
-        section { padding: 100px 10%; }
-        .section-title { font-family: 'Georgia', serif; font-size: 2.8rem; text-align: center; margin-bottom: 60px; color: var(--primary); font-style: italic; }
-
-        /* GRILLE SPIRITUELLE */
-        .spirit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .spirit-card { position: relative; height: 450px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .spirit-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .spirit-card:hover img { transform: scale(1.1); }
-        .spirit-card .info { position: absolute; bottom: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
-
-        /* ACTIVITÉS */
-        .activity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .activity-card { background: white; padding: 30px; border-radius: 15px; border: 1px solid #eee; transition: 0.3s; }
-        .activity-card:hover { border-color: var(--blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .activity-card h3 { color: var(--blue); margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .activity-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
-
-        /* BOUTIQUE MIEL */
-        .shop-highlight { background: var(--light); display: flex; align-items: center; gap: 60px; border-radius: 30px; margin: 0 10% 100px; padding: 50px; overflow: hidden;}
-        .shop-img { flex: 1; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: 0.8s; }
-        .shop-content { flex: 1; transform: translateX(30px); opacity: 0; transition: 0.8s; }
-        .shop-highlight.active .shop-content { transform: translateX(0); opacity: 1; }
-        .shop-content h2 { font-family: 'Georgia', serif; font-size: 2.5rem; margin-bottom: 20px; color: var(--blue); }
-        .badge { background: var(--gold); color: white; padding: 5px 15px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 15px; display: inline-block; }
-
-        /* FOOTER */
-        footer { background: var(--primary); color: white; padding: 80px 10% 30px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 50px; }
-        .footer-col h4 { color: var(--accent); margin-bottom: 25px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 15px; font-size: 0.9rem; opacity: 0.7; cursor: pointer; transition: 0.3s; }
-        .footer-col li:hover { opacity: 1; color: var(--accent); }
-
-        @media (max-width: 900px) {
-            .shop-highlight { flex-direction: column; text-align: center; }
-            .nav-container nav { display: none; }
-        }
+        /* LOADER */
+        #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121d1e; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease-out; }
+        .loader-container { position: relative; width: 150px; height: 150px; display: flex; justify-content: center; align-items: center; }
+        .loader-image { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 2px solid #b0955a; animation: pulse 2s infinite ease-in-out; }
+        .loader-spinner { position: absolute; width: 120px; height: 120px; border: 3px solid rgba(176, 149, 90, 0.2); border-top: 3px solid #b0955a; border-radius: 50%; animation: spin 1.5s linear infinite; }
+        .loader-text { color: white; margin-top: 20px; font-family: 'Playfair Display', serif; font-style: italic; letter-spacing: 2px; opacity: 0.8; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+        .fade-out { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <div class="brand">
-                <h2>Babadjou</h2>
-                <span>Notre-Dame des Montagnes</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#sanctuaire">LE SANCTUAIRE</a></li>
-                    <li><a href="#spiritualite">SPIRITUALITÉ</a></li>
-                    <li><a href="#activites">ACTIVITÉS</a></li>
-                    <li><a href="#boutique">LA BOUTIQUE</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li><a href="#" class="btn-don-nav">FAIRE UN DON</a></li>
-                </ul>
-            </nav>
+    <div id="loader-wrapper">
+        <div class="loader-container">
+            <img src="image_eb453a.png" alt="Sanctuaire Babadjou" class="loader-image">
+            <div class="loader-spinner"></div>
         </div>
-    </header>
+        <p class="loader-text">Entrée dans le Sanctuaire...</p>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h2>BABADJOU</h2>
+                <span>Notre-Dame des Montagnes</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="apropos.html">À PROPOS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#actualites">ACTUALITÉS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="programme.html">PROGRAMMES</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galerie.html">GALERIE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="boutique.htm">BOUTIQUE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+                    <li class="nav-item ms-lg-3"><a class="nav-link btn-donate" href="#">FAIRE UN DON</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 
     <section class="slider">
         <div class="slides">
@@ -177,53 +141,57 @@
                 <div class="slide-content" style="animation-delay: 0s;">
                     <h1>Le Calvaire Sacré</h1>
                     <p>Un chemin de foi sculpté dans la pierre, dominant les montagnes de Babadjou.</p>
+
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1772062197032.jpeg');">
+                <div class="carousel-caption">
+                    <h1 class="reveal active">Le Calvaire Sacré</h1>
+                    <p class="reveal active">Un chemin de foi sculpté dans la pierre, dominant les montagnes de Babadjou.</p>
+
                 </div>
             </div>
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('chapelle.png');">
-                <div class="slide-content" style="animation-delay: 6s;">
-                    <h1>Art et Dévotion</h1>
-                    <p>Découvrez les fresques uniques de la chapelle, où chaque peinture raconte une promesse de paix.</p>
+            <div class="carousel-item" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1772061946730.jpeg');">
+                <div class="carousel-caption">
+                    <h1>Sérénité et Prière</h1>
+                    <p>Découvrez la chapelle, un écrin de silence pour votre âme.</p>
                 </div>
             </div>
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('pelerins.png');">
-                <div class="slide-content" style="animation-delay: 12s;">
-                    <h1>La Ferveur Populaire</h1>
-                    <p>Vivez l'émotion des grands rassemblements en présence de nos pères Évêques.</p>
-                </div>
-            </div>
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('soeurs.png');">
-                <div class="slide-content" style="animation-delay: 18s;">
-                    <h1>Vie de Communauté</h1>
-                    <p>Le silence, la prière et le travail des Sœurs de Maria Stella Matutina au service de Marie.</p>
+            <div class="carousel-item" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1772062046929.jpeg');">
+                <div class="carousel-caption">
+                    <h1>Notre-Dame des Montagnes</h1>
+                    <p>Un pèlerinage au cœur de la création divine.</p>
                 </div>
             </div>
         </div>
-
-        <div class="action-overlay">
-            <div class="glass-nav">
-                <a href="https://wa.me/237691563370?text=Je%20souhaite%20confier%20une%20intention%20de%20prière" 
-   class="glass-btn" 
-   target="_blank">Intention de Prière</a>
-                <a href="https://wa.me/237691563370?text=Je%20souhaite%20confier%20une%20intention%20de%20prière" 
-   class="glass-btn" 
-   target="_blank">Messe & Offrande</a>
-                <a href="https://wa.me/237691563370?text=Je%20souhaite%20confier%20une%20intention%20de%20prière" 
-   class="glass-btn" 
-   target="_blank">>Allumer un Cierge</a>
+        <div class="glass-container">
+            <div class="glass-box shadow">
+                <a href="#" class="glass-link"><i class="fa-solid fa-hands-praying me-2"></i> Intention de Prière</a>
+                <a href="#" class="glass-link"><i class="fa-solid fa-church me-2"></i> Messe & Offrande</a>
+                <a href="#" class="glass-link"><i class="fa-solid fa-fire me-2"></i> Allumer un Cierge</a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="spiritualite">
-        <h2 class="section-title reveal">Vivre l'Expérience Spirituelle</h2>
-        <div class="spirit-grid">
-            <div class="spirit-card reveal">
-                <img src="2121.png" alt="Vierge de Babadjou">
-                <div class="info">
-                    <h3>La Grotte Mariale</h3>
-                    <p>Un lieu de recueillement silencieux pour confier vos secrets à Marie.</p>
+    <section id="apropos" class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 reveal">
+                <div class="section-title text-start">
+                    <h6 class="text-uppercase text-muted letter-spacing-2">Notre Histoire</h6>
+                    <h2>Un havre de paix sur les sommets</h2>
+                </div>
+                <p class="lead">Le Sanctuaire Notre-Dame des Montagnes est plus qu'un lieu de culte ; c'est un refuge pour l'âme situé sur les hauteurs de Babadjou.</p>
+                <p>Depuis sa création, il accueille des pèlerins venus de tout le pays pour chercher la paix, la guérison et le renouveau spirituel. Porté par la dévotion à la Vierge Marie, le site se distingue par son silence majestueux et la beauté de ses fresques sacrées.</p>
+                <div class="mt-4">
+                    <img src="signature.png" alt="" style="height: 60px; opacity: 0.6;">
                 </div>
             </div>
+
             <div class="spirit-card reveal delay-1">
                 <img src="chapelle.png" alt="Peintures">
                 <div class="info">
@@ -236,99 +204,198 @@
                 <div class="info">
                     <h3>Pèlerinages Annuels</h3>
                     <p>Rejoignez les processions aux flambeaux sous le ciel des montagnes.</p>
+
+            <div class="col-lg-6 mt-5 mt-lg-0 reveal">
+                <div class="position-relative">
+                    <img src="chapelle.png" class="img-fluid rounded-4 shadow-lg" alt="Chapelle">
+                    <div class="position-absolute bottom-0 end-0 bg-white p-4 shadow rounded-4 m-4 d-none d-md-block">
+                        <h4 class="serif mb-0" style="color:#333">"Prier, c'est respirer"</h4>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="activites" style="background-color: #fff; border-top: 1px solid #f0f0f0;">
-        <h2 class="section-title reveal">Les activités du Sanctuaire</h2>
-        <div class="activity-grid">
-            <div class="activity-card reveal">
-                <h3>Célébrations & Messes</h3>
-                <p>Messes solennelles présidées par les Évêques et célébrations quotidiennes au cœur de la montagne.</p>
+    <section id="actualites" style="background: #0d1415 !important;">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Actualités du Sanctuaire</h2>
             </div>
-            <div class="activity-card reveal delay-1">
-                <h3>Processions Mariales</h3>
-                <p>Marches de foi collectives vers la Grotte et le Calvaire, portées par les chants et la prière des pèlerins.</p>
-            </div>
-            <div class="activity-card reveal delay-2">
-                <h3>Artisanat des Sœurs</h3>
-                <p>Production artisanale du miel d'Eucalyptus thérapeutique par les Sœurs Stella Matutina du sanctuaire.</p>
-            </div>
-            <div class="activity-card reveal delay-3">
-                <h3>Accueil & Écoute</h3>
-                <p>Accompagnement spirituel, confessions et accueil des groupes de pèlerinage venant de tout le Cameroun.</p>
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="news-card">
+                        <img src="pelerins.png" class="news-img" alt="Pèlerins">
+                        <div class="news-body">
+                            <h4 class="serif">Prochain Pèlerinage</h4>
+                            <p class="small">Les inscriptions pour le pèlerinage de mars sont désormais ouvertes...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal" style="transition-delay: 0.2s;">
+                    <div class="news-card">
+                        <img src="bg.jpeg" class="news-img" alt="Sœurs">
+                        <div class="news-body">
+                            <h4 class="serif">Vie de la Communauté</h4>
+                            <p class="small">Les Sœurs Maria Stella Matutina partagent leur quotidien spirituel...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal" style="transition-delay: 0.4s;">
+                    <div class="news-card">
+                        <img src="miel_babadjou.png" class="news-img" alt="Miel">
+                        <div class="news-body">
+                            <h4 class="serif">Boutique : Nouveau Miel</h4>
+                            <p class="small">La nouvelle récolte de miel bio des montagnes est arrivée à la boutique...</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="boutique" class="shop-highlight reveal">
-        <img src="miel_babadjou.png" style="width:100%;height: 500px;" alt="Miel du Sanctuaire" class="shop-img">
-        <div class="shop-content">
-            <span class="badge">Artisanat Monastique</span>
-            <h2>Miel d'Eucalyptus de Babadjou</h2>
-            <p>Récolté avec soin sur les hauteurs du sanctuaire, notre miel d'eucalyptus est réputé pour ses vertus apaisantes et sa pureté exceptionnelle.</p>
-            <p style="margin: 20px 0; font-weight: 600; color: var(--primary);">Soutenez le sanctuaire : chaque achat finance l'entretien du site.</p>
-           <a href="https://wa.me/237691563370?text=Bonjour,%20je%20souhaite%20commander%20le%20miel%20du%20Sanctuaire." 
-   target="_blank" 
-   style="color: var(--blue); text-decoration: none; font-weight: bold; border-bottom: 2px solid var(--blue);">
-   COMMANDER EN LIGNE →
-</a>
+    <section id="programme">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Nos Programmes</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="prog-card">
+                        <span class="prog-time">Quotidien</span>
+                        <h3 class="serif mt-3">Messes Matinales</h3>
+                        <p>Célébrations à l'aube pour confier la journée au Seigneur dans la fraîcheur des montagnes.</p>
+                        <hr class="border-secondary">
+                        <small>Lundi - Samedi : 06h30</small>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal" style="transition-delay: 0.2s;">
+                    <div class="prog-card">
+                        <span class="prog-time">Chaque Dimanche</span>
+                        <h3 class="serif mt-3">Messe Dominicale</h3>
+                        <p>Grande célébration communautaire animée par les chorales du sanctuaire.</p>
+                        <hr class="border-secondary">
+                        <small>Dimanche : 10h00</small>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal" style="transition-delay: 0.4s;">
+                    <div class="prog-card">
+                        <span class="prog-time">Mensuel</span>
+                        <h3 class="serif mt-3">Veillée de Prière</h3>
+                        <p>Nuit d'adoration, de louange et de réconciliation chaque premier vendredi du mois.</p>
+                        <hr class="border-secondary">
+                        <small>Début : 21h00</small>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer id="contact">
-        <div class="footer-grid">
-            <div class="footer-col reveal">
-                <h4 style="color: white; font-size: 1.2rem; font-family: 'Georgia', serif;">Sanctuaire Marie</h4>
-                <p style="opacity: 0.6; margin-top: 10px;">Notre-Dame des Montagnes de Babadjou est un phare spirituel pour toute la région de l'Ouest Cameroun.</p>
-            </div>
-            <div class="footer-col reveal delay-1">
-                <h4>Pèlerinage</h4>
-                <ul>
-                    <li>Horaires des Célébrations</li>
-                    <li>Accueil des Groupes</li>
-                    <li>Hébergement des Pèlerins</li>
-                </ul>
-            </div>
-            <div class="footer-col reveal delay-2">
-                <h4>Soutenir</h4>
-                <ul>
-                    <li>Faire un Don Sécurisé</li>
-                    <li>Offrande de Messe</li>
-                    <li>Bénévolat au Sanctuaire</li>
-                </ul>
-            </div>
-            <div class="footer-col reveal delay-3">
-                <h4>Nous Joindre</h4>
-                <ul>
-                    <li>📍 Babadjou, Diocèse de Bafoussam</li>
-                    <li>📞 +237 691 563 370</li>
-                    <li>📧 contact@sanctuaire-babadjou.cm</li>
-                </ul>
+    <section id="galerie" class="container">
+        <div class="section-title reveal">
+            <h2>Galerie Sacrée</h2>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4 col-6 reveal"><div class="gallery-item"><img src="1772062046929.jpeg" alt=""></div></div>
+            <div class="col-md-4 col-6 reveal"><div class="gallery-item"><img src="1772061946730.jpeg" alt=""></div></div>
+            <div class="col-md-4 col-6 reveal"><div class="gallery-item"><img src="1772061969470 (1).jpeg" alt=""></div></div>
+            <div class="col-md-8 col-12 reveal"><div class="gallery-item"><img src="1772061886386.jpeg" alt=""></div></div>
+            <div class="col-md-4 col-12 reveal"><div class="gallery-item"><img src="1772062197032.jpeg" alt=""></div></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 reveal">
+                    <div class="contact-info-box">
+                        <h2 class="serif mb-4">Nous Contacter</h2>
+                        <p class="opacity-75 mb-5">Une question ? Une intention de messe ? Nos équipes et les Sœurs sont à votre écoute.</p>
+                        <div class="d-flex mb-4">
+                            <i class="fa-solid fa-location-dot me-3 mt-1 text-warning"></i>
+                            <div><strong>Adresse</strong><br>Babadjou, Diocèse de Bafoussam, Ouest Cameroun</div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <i class="fa-solid fa-phone me-3 mt-1 text-warning"></i>
+                            <div><strong>Téléphone</strong><br>+237 691 563 370</div>
+                        </div>
+                        <div class="d-flex">
+                            <i class="fa-solid fa-envelope me-3 mt-1 text-warning"></i>
+                            <div><strong>Email</strong><br>contact@sanctuaire-babadjou.cm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 reveal">
+                    <div class="p-5 rounded-4 shadow-sm" style="background: #121d1e;">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6"><input type="text" class="form-control" placeholder="Votre Nom"></div>
+                                <div class="col-md-6"><input type="email" class="form-control" placeholder="Email"></div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sujet">
+                            <textarea class="form-control" rows="5" placeholder="Votre message"></textarea>
+                            <button class="btn btn-warning btn-lg w-100 rounded-pill mt-3 fw-bold">Envoyer le message</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 0.8rem; opacity: 0.5;">
-            &copy; 2026 Sanctuaire de Babadjou. Tous droits réservés.
+    </section>
+
+    <footer class="custom-footer mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="footer-logo-brand">
+                        <h2>BABADJOU</h2>
+                        <span>Notre-Dame des Montagnes</span>
+                    </div>
+                    <p class="footer-logo-text">Un phare spirituel au cœur de l'Ouest Cameroun. Lieu de pèlerinage, de paix et de rencontre avec la Vierge Marie.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-title">Pèlerinage</h4>
+                    <ul class="footer-list">
+                        <li>Horaires des Messes</li>
+                        <li>La Grotte Mariale</li>
+                        <li>Le Chemin du Calvaire</li>
+                        <li>Accueil des Groupes</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Soutenir</h4>
+                    <ul class="footer-list">
+                        <li>Faire un Don en ligne</li>
+                        <li>Offrande de Messe</li>
+                        <li>Boutique du Miel</li>
+                        <li>Intentions de Prière</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SANCTUAIRE NOTRE-DAME DES MONTAGNES - BABADJOU. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
 
+    <a href="https://wa.me/237691563370" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Fonction d'observation pour les animations au scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, {
-            threshold: 0.1 // L'animation se lance quand 10% de l'élément est visible
-        });
-
-        // Appliquer l'observateur à tous les éléments avec la classe .reveal
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    </script>
 
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("loader-wrapper");
+            setTimeout(() => {
+                loader.classList.add("fade-out");
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
